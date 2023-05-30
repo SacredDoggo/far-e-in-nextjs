@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { logo } from "@/assets";
 import { FormField, Loader, Card } from "@/components";
 
-const RenderCards = ({ data, title }: { data: [{_id: string, name: string, prompt: string, photo: string}]; title: string }) => {
+const RenderCards = ({ data, title }: { data: any[]; title: string }) => {
   if (data?.length > 0) {
     return (
       <>
