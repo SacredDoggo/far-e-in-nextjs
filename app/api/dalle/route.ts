@@ -36,7 +36,7 @@ export async function POST(request: Request)
         const image = aiResponse.data.data[0].b64_json;
         return NextResponse.json({ photo: image });
 
-    } catch (error) {
+    } catch (error: any) {
         return new Response(error?.response.data.error.message);
     }
 }
