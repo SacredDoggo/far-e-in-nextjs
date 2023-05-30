@@ -38,7 +38,7 @@ const CreatePost = () => {
         );
 
         await response.json();
-        // router.push("/");
+        router.push("/");
       } catch (error) {
         alert(error);
       } finally {
