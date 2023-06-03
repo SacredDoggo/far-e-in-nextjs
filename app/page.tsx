@@ -6,8 +6,8 @@ import React, { useState, useEffect } from "react";
 import { logo } from "@/assets";
 import { FormField, Loader, Card } from "@/components";
 
-const RenderCards = ({ data, title }: { data: any[]; title: string }) => {
-  if (data?.length > 0) {
+const RenderCards = ({ data, title }: { data: {_id: string, name: string, prompt: string, photo: string}[] | undefined; title: string }) => {
+  if (data !== undefined && data?.length > 0) {
     return (
       <>
         {data.map((post) => (
@@ -24,10 +24,10 @@ const RenderCards = ({ data, title }: { data: any[]; title: string }) => {
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState<{_id: string, name: string, prompt: string, photo: string}[]>();
 
   const [searchText, setSearchText] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<{_id: string, name: string, prompt: string, photo: string}[]>();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -62,7 +62,7 @@ export default function Home() {
   const handleSearchChange = (e: any) => {
     setSearchText(e.target.value);
     setTimeout(() => {
-      const searchResults = allPosts.filter(
+      const searchResults = allPosts?.filter(
         (item: {name: string, prompt: string}) =>
           item.name.toLowerCase().includes(searchText.toLowerCase()) ||
           item.prompt.toLowerCase().includes(searchText.toLowerCase())

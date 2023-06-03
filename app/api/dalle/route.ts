@@ -21,10 +21,12 @@ export async function GET(){
 
 export async function POST(request: Request)
     {
-    try {
-        await connectDB();
-        const req = await request.json();
-        const prompt = req.prompt;
+        
+        try {
+            await connectDB();
+            const req = await request.json();
+            const prompt = req.prompt;
+            console.log('here');
 
         const aiResponse = await openai.createImage({
             prompt,
@@ -32,12 +34,15 @@ export async function POST(request: Request)
             size: '1024x1024',
             response_format: 'b64_json',
         });
-
+        console.log('aiResponse');
+        
         const image = aiResponse.data.data[0].b64_json;
         return NextResponse.json({ photo: image });
 
     } catch (error: any) {
-        return new Response(error?.response.data.error.message);
+        // console.log(error);
+        const err = await error.json();
+        return new Response(err?.error);
     }
 }
 
