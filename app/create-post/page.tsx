@@ -7,6 +7,7 @@ import Link from "next/link";
 import { preview, logo } from "@/assets";
 import { getRandomPrompt } from "@/utils";
 import { FormField, Loader } from "@/components";
+import { error } from "console";
 
 const CreatePost = () => {
   const router = useRouter();
@@ -71,8 +72,14 @@ const CreatePost = () => {
         );
 
         const data = await response.json();
+        // console.log(data);
+        
+        if(data.name !== 'Error')
+        {
+
           
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });}
+        else throw JSON.stringify(data);
       } catch (error) {
         alert(error);
       } finally {

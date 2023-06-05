@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const{ name, prompt, photo } = req.body;
             const photoUrl = await cloudinary.uploader.upload(photo);
-            console.log(photoUrl.url);
+            // console.log(photoUrl.url);
     
             const newPost = await Post.create({
                 name,
@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
     
             const temp = await Post.find({});
-            console.log('nope cant get shit here: '+ temp);
+            // console.log('nope cant get shit here: '+ temp);
     
             res.status(201).json({ success: true, data: newPost });
         } catch (error) {
