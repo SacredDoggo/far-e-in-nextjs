@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { FaGithub } from 'react-icons/fa';
 
 import { logo } from "@/assets";
 import { FormField, Loader, Card } from "@/components";
 
-const RenderCards = ({ data, title }: { data: {_id: string, name: string, prompt: string, photo: string}[] | undefined; title: string }) => {
+const RenderCards = ({ data, title }: { data: { _id: string, name: string, prompt: string, photo: string }[] | undefined; title: string }) => {
   if (data !== undefined && data?.length > 0) {
     return (
       <>
@@ -24,10 +25,10 @@ const RenderCards = ({ data, title }: { data: {_id: string, name: string, prompt
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const [allPosts, setAllPosts] = useState<{_id: string, name: string, prompt: string, photo: string}[]>();
+  const [allPosts, setAllPosts] = useState<{ _id: string, name: string, prompt: string, photo: string }[]>();
 
   const [searchText, setSearchText] = useState("");
-  const [searchResult, setSearchResult] = useState<{_id: string, name: string, prompt: string, photo: string}[]>();
+  const [searchResult, setSearchResult] = useState<{ _id: string, name: string, prompt: string, photo: string }[]>();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -63,7 +64,7 @@ export default function Home() {
     setSearchText(e.target.value);
     setTimeout(() => {
       const searchResults = allPosts?.filter(
-        (item: {name: string, prompt: string}) =>
+        (item: { name: string, prompt: string }) =>
           item.name.toLowerCase().includes(searchText.toLowerCase()) ||
           item.prompt.toLowerCase().includes(searchText.toLowerCase())
       );
@@ -78,6 +79,10 @@ export default function Home() {
         <Link href="/">
           <img src={logo.src} alt="logo" className="w-28 object-contain" />
         </Link>
+
+        <a className="font-inter font-medium bg-[#000000] text-white px-6 py-3 rounded-md" target="_blank" href="https://github.com/SacredDoggo/far-e-in-nextjs" rel="noopener noreferrer">
+          <FaGithub />
+        </a>
 
         <Link
           href="/create-post"

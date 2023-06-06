@@ -9,41 +9,40 @@ dotenv.config();
 
 
 const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY
+	apiKey: process.env.OPENAI_API_KEY
 })
 
 const openai = new OpenAIApi(configuration);
 
 
-export async function GET(){
-    return new Response("Hello from Far E 2");
+export async function GET() {
+	return new Response("Hello from Far E 2");
 }
 
-export async function POST(request: Request)
-    {
-        
-        try {
-            await connectDB();
-            const req = await request.json();
-            const prompt = req.prompt;
-            // console.log('here');
+export async function POST(request: Request) {
 
-        const aiResponse = await openai.createImage({
-            prompt,
-            n: 1,
-            size: '1024x1024',
-            response_format: 'b64_json',
-        });
-        // console.log('aiResponse');
-        
-        const image = aiResponse.data.data[0].b64_json;
-        return NextResponse.json({ photo: image });
+	try {
+		await connectDB();
+		const req = await request.json();
+		const prompt = req.prompt;
+		// console.log('here');
 
-    } catch (error: any) {
-        // console.log(error);
-        // const err = await error.json();
-        return new Response(error?.response.data.error.message);
-    }
+		const aiResponse = await openai.createImage({
+			prompt,
+			n: 1,
+			size: '1024x1024',
+			response_format: 'b64_json',
+		});
+		// console.log('aiResponse');
+
+		const image = aiResponse.data.data[0].b64_json;
+		return NextResponse.json({ photo: image });
+
+	} catch (error: any) {
+		// console.log(error);
+		// const err = await error.json();
+		return new Response(error?.response.data.error.message);
+	}
 }
 
 
