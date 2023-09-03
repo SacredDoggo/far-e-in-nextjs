@@ -79,7 +79,7 @@ const CreatePost = () => {
 
 					setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
 				}
-				else throw JSON.stringify(data);
+				else throw JSON.stringify(data.error);
 			} catch (error) {
 				alert(error);
 			} finally {

@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 	} catch (error: any) {
 		// console.log(error);
 		// const err = await error.json();
-		return new Response(error?.response.data.error.message);
+		return NextResponse.json({name: "Error", error: "Tokens Expired - " + error.message});
 	}
 }
 
